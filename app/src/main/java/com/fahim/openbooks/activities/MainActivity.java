@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import com.fahim.openbooks.R;
 import com.fahim.openbooks.fragments.BookDetailFragment;
 import com.fahim.openbooks.fragments.TopBooksFragment;
-import com.fahim.openbooks.retrofit.BookListItem;
+import com.fahim.openbooks.retrofit.Feed;
 
 
 public class MainActivity extends Activity implements TopBooksFragment.Contract {
@@ -53,7 +53,7 @@ public class MainActivity extends Activity implements TopBooksFragment.Contract 
     }
 
     @Override
-    public void showItem(BookListItem item) {
+    public void showItem(Feed.Entry item) {
 
     }
 }

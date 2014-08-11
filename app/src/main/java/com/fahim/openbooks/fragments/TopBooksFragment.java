@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.fahim.openbooks.R;
 import com.fahim.openbooks.adapters.BookListItemAdapter;
-import com.fahim.openbooks.retrofit.BookListItem;
 import com.fahim.openbooks.retrofit.BooksShouldBeFreeInterface;
 import com.fahim.openbooks.retrofit.Feed;
 import com.fahim.openbooks.retrofit.SimpleXMLConverter;
@@ -36,7 +35,7 @@ public class TopBooksFragment extends Fragment implements Callback<Feed>, Adapte
     }
 
     public interface Contract {
-        void showItem(BookListItem item);
+        void showItem(Feed.Entry item);
     }
 
     private ListView mListView;
@@ -80,6 +79,6 @@ public class TopBooksFragment extends Fragment implements Callback<Feed>, Adapte
         Toast.makeText(getActivity(), retrofitError.getMessage(),
         Toast.LENGTH_LONG).show();
         Log.e("TopBooksFragment",
-                "Exception from Retrofit request to TopBooksList", retrofitError);
+                "Exception from Retrofit", retrofitError);
     }
 }

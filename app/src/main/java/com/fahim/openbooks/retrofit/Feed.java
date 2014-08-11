@@ -2,9 +2,11 @@ package com.fahim.openbooks.retrofit;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.ElementMap;
 import org.simpleframework.xml.Root;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Fahim on 8/10/2014.
@@ -19,11 +21,9 @@ public class Feed {
     public static class Entry {
 
         @Element
-        private String title;
+        public String title;
 
-        @Override
-        public String toString() {
-            return title;
-        }
+        @ElementMap(entry="link", key="rel", attribute=true, inline=true, value="href")
+        public Map<String, String> map;
     }
 }
