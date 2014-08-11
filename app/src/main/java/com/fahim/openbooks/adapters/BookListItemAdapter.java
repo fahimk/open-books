@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.fahim.openbooks.retrofit.BookListItem;
+import com.fahim.openbooks.retrofit.Feed;
 
 import java.util.List;
 
 /**
  * Created by Fahim on 8/10/2014.
  */
-public class BookListItemAdapter extends ArrayAdapter<BookListItem> {
-    public BookListItemAdapter(Activity activity, List<BookListItem> items) {
+public class BookListItemAdapter extends ArrayAdapter<Feed.Entry> {
+    public BookListItemAdapter(Activity activity, List<Feed.Entry> items) {
         super(activity, android.R.layout.simple_list_item_1, items);
     }
 

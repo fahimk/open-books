@@ -7,6 +7,6 @@ import retrofit.http.GET;
  * Created by Fahim on 8/10/2014.
  */
 public interface BooksShouldBeFreeInterface {
-    @GET("/books.html")
-    void topBooks(Callback<TopBooksList> callBack);
+    @GET("/top.atom?range=month")
+    void topBooks(Callback<Feed> callBack);
 }

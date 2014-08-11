@@ -15,7 +15,8 @@ import com.fahim.openbooks.R;
 import com.fahim.openbooks.adapters.BookListItemAdapter;
 import com.fahim.openbooks.retrofit.BookListItem;
 import com.fahim.openbooks.retrofit.BooksShouldBeFreeInterface;
-import com.fahim.openbooks.retrofit.TopBooksList;
+import com.fahim.openbooks.retrofit.Feed;
+import com.fahim.openbooks.retrofit.SimpleXMLConverter;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -26,12 +27,12 @@ import retrofit.client.Response;
  * A simple {@link Fragment} subclass.
  *
  */
-public class TopBooksFragment extends Fragment implements Callback<TopBooksList>, AdapterView.OnItemClickListener {
+public class TopBooksFragment extends Fragment implements Callback<Feed>, AdapterView.OnItemClickListener {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         BookListItemAdapter bookListItemAdapter = (BookListItemAdapter) mListView.getAdapter();
-        ((TopBooksFragment.Contract)getActivity()).showItem(bookListItemAdapter.getItem(position));
+        //((TopBooksFragment.Contract)getActivity()).showItem(bookListItemAdapter.getItem(position));
     }
 
     public interface Contract {
@@ -57,7 +58,7 @@ public class TopBooksFragment extends Fragment implements Callback<TopBooksList>
         //Gson gson = new GsonBuilder().create();
 
         RestAdapter restAdapter =
-                new RestAdapter.Builder().setEndpoint("http://openbooks.comule.com") //.setConverter(new GsonConverter(gson))
+                new RestAdapter.Builder().setEndpoint("http://www.feedbooks.com/books").setConverter(new SimpleXMLConverter())
                         .build();
 
         BooksShouldBeFreeInterface booksShouldBeFreeInterface = restAdapter.create(BooksShouldBeFreeInterface.class);
@@ -68,9 +69,9 @@ public class TopBooksFragment extends Fragment implements Callback<TopBooksList>
 
 
     @Override
-    public void success(TopBooksList topBooksList, Response response) {
+    public void success(Feed feed, Response response) {
         if(mListView != null) {
-            mListView.setAdapter(new BookListItemAdapter(getActivity(), topBooksList.top));
+            mListView.setAdapter(new BookListItemAdapter(getActivity(), feed.list));
         }
     }
 

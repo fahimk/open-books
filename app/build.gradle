@@ -25,5 +25,6 @@ dependencies {
     compile files('libs/okhttp-2.0.0.jar')
     compile files('libs/okhttp-urlconnection-2.0.0.jar')
     compile files('libs/okio-1.0.1.jar')
-    compile files('libs/retrofit-simplexmlconverter-1.1.jar')
+    compile files('libs/simple-xml-2.7.1.jar')
+    compile files('libs/retrofit-1.6.1.jar')
 }
