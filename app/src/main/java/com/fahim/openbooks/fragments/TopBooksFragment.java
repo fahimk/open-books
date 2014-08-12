@@ -31,7 +31,7 @@ public class TopBooksFragment extends Fragment implements Callback<Feed>, Adapte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         BookListItemAdapter bookListItemAdapter = (BookListItemAdapter) mListView.getAdapter();
-        //((TopBooksFragment.Contract)getActivity()).showItem(bookListItemAdapter.getItem(position));
+        ((TopBooksFragment.Contract)getActivity()).showItem(bookListItemAdapter.getItem(position));
     }
 
     public interface Contract {
@@ -43,7 +43,6 @@ public class TopBooksFragment extends Fragment implements Callback<Feed>, Adapte
     public TopBooksFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

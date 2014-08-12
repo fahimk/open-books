@@ -1,6 +1,7 @@
 package com.fahim.openbooks.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,15 +21,15 @@ public class MainActivity extends Activity implements TopBooksFragment.Contract 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(findViewById(R.id.detail_fragment) != null) {
+        if(findViewById(R.id.detail_fragment_container) != null) {
             mTwoPane = true;
-            getFragmentManager().beginTransaction().add(R.id.detail_fragment, new BookDetailFragment()).commit();
+            getFragmentManager().beginTransaction().add(R.id.detail_fragment_container, new BookDetailFragment()).commit();
         }
 
-        TopBooksFragment topBooksFragment = (TopBooksFragment) getFragmentManager().findFragmentById(R.id.main_fragment);
+        TopBooksFragment topBooksFragment = (TopBooksFragment) getFragmentManager().findFragmentById(R.id.main_fragment_container);
         if(topBooksFragment == null) {
             topBooksFragment = new TopBooksFragment();
-            getFragmentManager().beginTransaction().add(R.id.main_fragment, topBooksFragment).commit();
+            getFragmentManager().beginTransaction().add(R.id.main_fragment_container, topBooksFragment).commit();
         }
     }
 
@@ -54,6 +55,21 @@ public class MainActivity extends Activity implements TopBooksFragment.Contract 
 
     @Override
     public void showItem(Feed.Entry item) {
+        if(mTwoPane) {
+            Bundle bundle = new Bundle();
+            //TODO: pass bundle from previous activity intent call
+            bundle.putSerializable("Feed.Entry", item);
+            BookDetailFragment bookDetailFragment = new BookDetailFragment();
+            bookDetailFragment.setArguments(bundle);
 
+            getFragmentManager().beginTransaction().replace(R.id.detail_fragment_container, bookDetailFragment).commit();
+            getFragmentManager().executePendingTransactions();
+        }
+        else {
+            Intent intent = new Intent(this, BookDetailActivity.class);
+            //TODO: remove hardcoded key
+            intent.putExtra("Feed.Entry", item);
+            startActivity(intent);
+        }
     }
 }
