@@ -15,21 +15,23 @@ import com.fahim.openbooks.retrofit.Feed;
 public class MainActivity extends Activity implements TopBooksFragment.Contract {
 
     private boolean mTwoPane;
+    private TopBooksFragment mTopBooksFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(findViewById(R.id.detail_fragment_container) != null) {
+        if (findViewById(R.id.detail_fragment_container) != null) {
             mTwoPane = true;
-            getFragmentManager().beginTransaction().add(R.id.detail_fragment_container, new BookDetailFragment()).commit();
+            if(savedInstanceState == null) {
+                getFragmentManager().beginTransaction().replace(R.id.detail_fragment_container, new BookDetailFragment()).commit();
+            }
         }
 
-        TopBooksFragment topBooksFragment = (TopBooksFragment) getFragmentManager().findFragmentById(R.id.main_fragment_container);
-        if(topBooksFragment == null) {
-            topBooksFragment = new TopBooksFragment();
-            getFragmentManager().beginTransaction().add(R.id.main_fragment_container, topBooksFragment).commit();
+        if(savedInstanceState == null) {
+            mTopBooksFragment = new TopBooksFragment();
+            getFragmentManager().beginTransaction().replace(R.id.main_fragment_container, mTopBooksFragment).commit();
         }
     }
 
@@ -55,7 +57,7 @@ public class MainActivity extends Activity implements TopBooksFragment.Contract 
 
     @Override
     public void showItem(Feed.Entry item) {
-        if(mTwoPane) {
+        if (mTwoPane) {
             Bundle bundle = new Bundle();
             //TODO: pass bundle from previous activity intent call
             bundle.putSerializable("Feed.Entry", item);
@@ -64,8 +66,7 @@ public class MainActivity extends Activity implements TopBooksFragment.Contract 
 
             getFragmentManager().beginTransaction().replace(R.id.detail_fragment_container, bookDetailFragment).commit();
             getFragmentManager().executePendingTransactions();
-        }
-        else {
+        } else {
             Intent intent = new Intent(this, BookDetailActivity.class);
             //TODO: remove hardcoded key
             intent.putExtra("Feed.Entry", item);

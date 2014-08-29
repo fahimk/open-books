@@ -17,15 +17,34 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'AndroidManifest.xml'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+    }
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/gson-2.2.4.jar')
-    compile files('libs/okhttp-2.0.0.jar')
-    compile files('libs/okhttp-urlconnection-2.0.0.jar')
-    compile files('libs/okio-1.0.1.jar')
-    compile files('libs/simple-xml-2.7.1.jar')
-    compile files('libs/retrofit-1.6.1.jar')
-    compile files('libs/picasso-2.3.3.jar')
+
+    // robospice
+    compile 'com.octo.android.robospice:robospice:1.4.13'
+    compile 'com.octo.android.robospice:robospice-spring-android:1.4.13'
+    compile('org.simpleframework:simple-xml:2.7.1') {
+        exclude module: 'xpp3'
+        exclude group: 'stax'
+    }
+
+    // horizontal list view
+    compile 'it.sephiroth.android.library.horizontallistview:library:+'
+
+    // picasso
+    compile 'com.squareup.picasso:picasso:2.3.4'
 }

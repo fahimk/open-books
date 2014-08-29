@@ -1,12 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.TopBooksFragment">
+    android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/top_books_list"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content"
+            android:text="Top Books" />
+
+        <it.sephiroth.android.library.widget.HListView
+            android:id="@+id/top_books_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#11000000"/>
+    </LinearLayout>
+
+</ScrollView>
